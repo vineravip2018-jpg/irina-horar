@@ -1,0 +1,313 @@
+/* Сайт Ирины Владимировны – ИИ-астролога. Цвета взяты с обложек Ирины */
+:root {
+  --night: #1c0f2a;      /* фон, как на обложках */
+  --night-deep: #130a1d; /* подвал и плашки */
+  --plum: #3b1f4f;       /* линии карты, рамки */
+  --moon: #f3ead8;       /* основной текст */
+  --mist: #b8aac9;       /* второстепенный текст */
+  --gold: #e9c46a;       /* время вопроса, кнопки */
+  --measure: 38rem;
+}
+
+* { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--night);
+  color: var(--moon);
+  font-family: "Montserrat", system-ui, sans-serif;
+  font-size: 1.1875rem; /* 19px – зрители Ирины в основном 55+ */
+  line-height: 1.6;
+}
+
+img { max-width: 100%; display: block; }
+
+a { color: var(--gold); text-underline-offset: 0.2em; }
+
+a:focus-visible, button:focus-visible {
+  outline: 3px solid var(--gold);
+  outline-offset: 3px;
+}
+
+h1, h2, h3 {
+  font-family: "Prata", Georgia, serif;
+  font-weight: 400;
+  line-height: 1.2;
+  margin: 0 0 0.6em;
+  hyphens: none;
+  overflow-wrap: normal;
+  word-break: keep-all;
+  text-wrap: balance;
+}
+
+h1 { font-size: clamp(2.1rem, 6.4vw, 3.4rem); }
+h2 { font-size: clamp(1.6rem, 4.4vw, 2.2rem); }
+h3 { font-size: 1.3rem; }
+
+p { margin: 0 0 1em; }
+
+.wrap {
+  width: 100%;
+  max-width: 68rem;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.text { max-width: var(--measure); }
+
+/* Шапка: имя Ирины – крупно */
+.top {
+  padding: 1.25rem 0;
+  border-bottom: 1px solid var(--plum);
+}
+.top .wrap {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+.brand {
+  font-family: "Prata", Georgia, serif;
+  font-size: clamp(1.35rem, 4.2vw, 1.75rem);
+  color: var(--moon);
+  text-decoration: none;
+  line-height: 1.15;
+}
+.brand small {
+  display: block;
+  font-family: "Montserrat", sans-serif;
+  font-size: 0.8rem;
+  color: var(--mist);
+  margin-top: 0.2rem;
+}
+.top-ask {
+  font-size: 0.95rem;
+  white-space: nowrap;
+}
+
+/* Первый экран: минута вопроса и карта */
+.hero { padding: 3rem 0 3.5rem; }
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 2.5rem;
+  align-items: center;
+}
+.hero-lead { font-size: 1.25rem; color: var(--moon); max-width: 34rem; }
+
+.minute {
+  position: relative;
+  aspect-ratio: 1;
+  max-width: 26rem;
+  width: 100%;
+  margin-left: auto;
+}
+.minute svg { width: 100%; height: 100%; }
+.minute-time {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-content: center;
+  text-align: center;
+}
+.minute-time b {
+  font-family: "Prata", Georgia, serif;
+  font-weight: 400;
+  font-size: clamp(3.4rem, 12vw, 5.2rem);
+  color: var(--gold);
+  line-height: 1;
+}
+.minute-time span {
+  font-size: 0.9rem;
+  color: var(--mist);
+  margin-top: 0.5rem;
+}
+.signed {
+  display: flex;
+  gap: 0.9rem;
+  align-items: center;
+  max-width: 34rem;
+}
+.signed img {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  border: 2px solid var(--gold);
+  flex: none;
+}
+.signed p { margin: 0; font-size: 1rem; }
+.wheel { transform-origin: 50% 50%; animation: settle 2.4s ease-out both; }
+@keyframes settle {
+  from { transform: rotate(-30deg); opacity: 0; }
+  to { transform: rotate(0); opacity: 1; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .wheel { animation: none; }
+}
+
+/* Кнопки мессенджеров */
+.ask {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin: 1.75rem 0 0.75rem;
+}
+.btn {
+  display: inline-block;
+  padding: 0.95rem 1.4rem;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 1.05rem;
+  text-decoration: none;
+  line-height: 1.2;
+}
+.btn-main { background: var(--gold); color: var(--night-deep); }
+.btn-main:hover { background: #f1d48a; }
+.btn-alt { border: 2px solid var(--gold); color: var(--moon); }
+.btn-alt:hover { background: var(--plum); }
+.ask-note { font-size: 0.95rem; color: var(--mist); }
+
+/* Разделы */
+.block { padding: 3.5rem 0; border-top: 1px solid var(--plum); }
+
+.steps {
+  list-style: none;
+  padding: 0;
+  margin: 1.5rem 0 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  counter-reset: step;
+}
+.steps li { counter-increment: step; }
+.steps li::before {
+  content: counter(step);
+  display: block;
+  font-family: "Prata", Georgia, serif;
+  font-size: 2.6rem;
+  color: var(--gold);
+  line-height: 1;
+  margin-bottom: 0.6rem;
+}
+
+/* Пример ответа – как переписка */
+.chat {
+  max-width: 34rem;
+  margin: 1.5rem 0;
+  display: grid;
+  gap: 0.75rem;
+}
+.msg {
+  padding: 0.9rem 1.1rem;
+  border-radius: 1.1rem;
+  font-size: 1.05rem;
+}
+.msg-me {
+  justify-self: end;
+  background: var(--plum);
+  border-bottom-right-radius: 0.3rem;
+  max-width: 85%;
+}
+.msg-irina {
+  background: var(--night-deep);
+  border: 1px solid var(--plum);
+  border-bottom-left-radius: 0.3rem;
+  max-width: 92%;
+}
+.msg-time { display: block; font-size: 0.8rem; color: var(--mist); margin-top: 0.3rem; }
+
+/* Список вопросов */
+.questions {
+  list-style: none;
+  padding: 0;
+  margin: 1.5rem 0 0;
+  max-width: var(--measure);
+}
+.questions li { border-bottom: 1px solid var(--plum); }
+.questions a {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem 0;
+  color: var(--moon);
+  text-decoration: none;
+  font-family: "Prata", Georgia, serif;
+  font-size: 1.3rem;
+}
+.questions a:hover { color: var(--gold); }
+.questions .soon { color: var(--mist); font-family: "Montserrat", sans-serif; font-size: 0.9rem; align-self: center; }
+.questions span.q { padding: 1rem 0; display: flex; justify-content: space-between; gap: 1rem; font-family: "Prata", Georgia, serif; font-size: 1.3rem; color: var(--mist); }
+
+/* Цены */
+.prices {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+  max-width: 52rem;
+}
+.price { border-left: 2px solid var(--gold); padding-left: 1rem; }
+.price b { display: block; font-family: "Prata", Georgia, serif; font-weight: 400; font-size: 2rem; color: var(--gold); line-height: 1.1; }
+
+/* Ирина */
+.about {
+  display: grid;
+  grid-template-columns: 14rem 1fr;
+  gap: 2rem;
+  align-items: start;
+}
+.about img { border-radius: 50%; border: 2px solid var(--plum); }
+
+/* Вопросы и ответы */
+.faq details {
+  max-width: var(--measure);
+  border-bottom: 1px solid var(--plum);
+  padding: 0.9rem 0;
+}
+.faq summary {
+  cursor: pointer;
+  font-weight: 600;
+  list-style-position: outside;
+}
+.faq details p { margin: 0.75rem 0 0.25rem; color: var(--moon); }
+
+/* Страница одного вопроса */
+.crumbs { font-size: 0.9rem; color: var(--mist); padding-top: 1.5rem; }
+.crumbs a { color: var(--mist); }
+.article { padding: 2rem 0 3rem; }
+.article h2 { margin-top: 2.2rem; }
+.article ul { padding-left: 1.2rem; }
+.article li { margin-bottom: 0.5rem; }
+.callout {
+  max-width: var(--measure);
+  background: var(--night-deep);
+  border: 1px solid var(--plum);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  margin: 2rem 0;
+}
+.callout h2 { margin-top: 0; }
+
+.foot {
+  background: var(--night-deep);
+  padding: 2.5rem 0;
+  font-size: 0.9rem;
+  color: var(--mist);
+}
+.foot a { color: var(--mist); }
+
+@media (max-width: 860px) {
+  .hero-grid { grid-template-columns: 1fr; }
+  .hero { padding: 2rem 0 2.5rem; }
+  .minute { margin: 0 auto; max-width: 16rem; }
+  .steps { grid-template-columns: 1fr; gap: 1.5rem; }
+  .prices { grid-template-columns: 1fr; }
+  .about { grid-template-columns: 1fr; }
+  .about img { max-width: 10rem; }
+}
+@media (max-width: 480px) {
+  .top-ask { display: none; }
+  .btn { width: 100%; text-align: center; }
+}
